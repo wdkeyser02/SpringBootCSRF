@@ -6,14 +6,17 @@
 </head>
 <body>
 <h1>Spring Boot Tutorial CSRF</h1>
+
 <form th:action="@{/form01}" method="post">
     <button type="submit">Button 01</button>
 </form>
 <p th:text="${text01}"></p>
+
 <form action="/form02" method="post">
 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <button type="submit">Button 02</button>
 </form>
 <p th:text="${text02}"></p>
+
 </body>
 </html>
