@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<meta th:name="_csrf" th:content="${_csrf.token}"/>
+<meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Spring Boot CSRF</title>
 </head>
 <body>
@@ -15,5 +17,17 @@
     <button type="submit">Button 02</button>
 </form>
 <p th:text="${text02}"></p>
+<script>
+function load() {
+	const header = document.querySelector('meta[name="_csrf_header"]').content;
+	const token = document.querySelector('meta[name="_csrf"]').content;
+	console.log("HEADER: " + header)
+	console.log("TOKEN: " + token)
+	
+}
+
+document.addEventListener("DOMContentLoaded", load);
+
+</script>
 </body>
 </html>
