@@ -8,22 +8,35 @@
 </head>
 <body>
 <h1>Spring Boot Tutorial CSRF</h1>
+
 <form th:action="@{/form01}" method="post">
     <button type="submit">Button 01</button>
 </form>
 <p th:text="${text01}"></p>
+
 <form action="/form02" method="post">
 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <button type="submit">Button 02</button>
 </form>
 <p th:text="${text02}"></p>
+
+<p> </p>
+<p id="javascript01"></p>
 <script>
-function load() {
-	const header = document.querySelector('meta[name="_csrf_header"]').content;
+async function load() {
+	const headerName = document.querySelector('meta[name="_csrf_header"]').content;
 	const token = document.querySelector('meta[name="_csrf"]').content;
-	console.log("HEADER: " + header)
-	console.log("TOKEN: " + token)
+	const header = new Headers();
+	header.append('Content-Type','application/text');
+	header.append(headerName, token);
 	
+	let javascriptresponse = await fetch("http://localhost:8080/javascript01", {
+		method: 'POST',
+		headers: header
+		});
+	let javascripttext = await javascriptresponse.text();
+	document.getElementById("javascript01").innerHTML = javascripttext;
+
 }
 
 document.addEventListener("DOMContentLoaded", load);

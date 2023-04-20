@@ -24,4 +24,5 @@ public class HomeController {
 		model.addAttribute("text02", "Submit Form 02");
 		return "index";
 	}
+		
 }
